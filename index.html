@@ -148,85 +148,86 @@
     <h2>Date: <span id="currentDate"></span></h2>
     <p id="currentTimeTodo"></p> <!-- Time display for to-do list -->
 
-    <form id="taskForm"> <!-- Form for the task list -->
-        <div id="taskList">
-            <!-- Fixed initial tasks with sub-tasks -->
-            <div class="task">
-                <input type="checkbox" name="task" value="Market Opening Update" onchange="completeTask(this, 'Market Opening Update', this.parentNode)"> 
-                <span>🌅 Market Opening Update - 9:15 AM</span>
-                <div class="sub-task">
-                    <input type="checkbox" name="subtask" value="Post an engaging update on Instagram Story" onchange="subTaskCompleted(this, 'Post an engaging update on Instagram Story')">
-                    <span>Post an engaging update on Instagram Story.</span>
-                </div>
-                <div class="sub-task">
-                    <input type="checkbox" name="subtask" value="Use vibrant visuals and catchy text" onchange="subTaskCompleted(this, 'Use vibrant visuals and catchy text')">
-                    <span>Use vibrant visuals and catchy text!</span>
-                </div>
-            </div>
-            <div class="task">
-                <input type="checkbox" name="task" value="News Update" onchange="completeTask(this, 'News Update', this.parentNode)"> 
-                <span>📰 News Update - 11:30 AM</span>
-                <div class="sub-task">
-                    <input type="checkbox" name="subtask" value="Share news across WhatsApp Channel" onchange="subTaskCompleted(this, 'Share news across WhatsApp Channel')">
-                    <span>Share news across WhatsApp Channel</span>
-                </div>
-                <div class="sub-task">
-                    <input type="checkbox" name="subtask" value="Share news across WhatsApp Community" onchange="subTaskCompleted(this, 'Share news across WhatsApp Community')">
-                    <span>Share news across WhatsApp Community</span>
-                </div>
-                <div class="sub-task">
-                    <input type="checkbox" name="subtask" value="Share news across YouTube Community" onchange="subTaskCompleted(this, 'Share news across YouTube Community')">
-                    <span>Share news across YouTube Community</span>
-                </div>
-                <div class="sub-task">
-                    <input type="checkbox" name="subtask" value="Share news across Instagram" onchange="subTaskCompleted(this, 'Share news across Instagram')">
-                    <span>Share news across Instagram</span>
-                </div>
-            </div>
-            <div class="task">
-                <input type="checkbox" name="task" value="Trending News Reel" onchange="completeTask(this, 'Trending News Reel', this.parentNode)"> 
-                <span>🎥 Trending News Reel - 7:30 PM</span>
-                <div class="sub-task">
-                    <input type="checkbox" name="subtask" value="Create a reel on Instagram Reels" onchange="subTaskCompleted(this, 'Create a reel on Instagram Reels')">
-                    <span>Create a reel on Instagram Reels</span>
-                </div>
-                <div class="sub-task">
-                    <input type="checkbox" name="subtask" value="Create a reel on YouTube Shorts" onchange="subTaskCompleted(this, 'Create a reel on YouTube Shorts')">
-                    <span>Create a reel on YouTube Shorts</span>
-                </div>
-            </div>
-            <div class="task">
-                <input type="checkbox" name="task" value="Evening Market Update" onchange="completeTask(this, 'Evening Market Update', this.parentNode)"> 
-                <span>🌇 Evening Market Update - 9:30 PM</span>
-                <div class="sub-task">
-                    <input type="checkbox" name="subtask" value="Post a whole-day market update on WhatsApp Channel" onchange="subTaskCompleted(this, 'Post a whole-day market update on WhatsApp Channel')">
-                    <span>Post a whole-day market update on WhatsApp Channel</span>
-                </div>
-                <div class="sub-task">
-                    <input type="checkbox" name="subtask" value="Post a whole-day market update on WhatsApp Community" onchange="subTaskCompleted(this, 'Post a whole-day market update on WhatsApp Community')">
-                    <span>Post a whole-day market update on WhatsApp Community</span>
-                </div>
-                <div class="sub-task">
-                    <input type="checkbox" name="subtask" value="Post a whole-day market update on YouTube Community" onchange="subTaskCompleted(this, 'Post a whole-day market update on YouTube Community')">
-                    <span>Post a whole-day market update on YouTube Community</span>
-                </div>
-                <div class="sub-task">
-                    <input type="checkbox" name="subtask" value="Post a whole-day market update on Instagram" onchange="subTaskCompleted(this, 'Post a whole-day market update on Instagram')">
-                    <span>Post a whole-day market update on Instagram</span>
-                </div>
-            </div>
-            <!-- Option to add a new task -->
-            <div class="task">
-                <input type="text" id="newTask" placeholder="Enter new task..." />
-                <button onclick="addTask()">Add Task</button>
-            </div>
-        </div>
+    <form id="taskForm"> <!-- Form for submitting tasks to Google Sheets -->
+        <input type="text" id="task" placeholder="Enter your task" required>
+        <label>
+            Completed:
+            <input type="checkbox" id="completed">
+        </label>
+        <button type="submit">Submit Task</button>
     </form>
 
-    <button onclick="generateReport()">Submit Report</button> <!-- New submit button -->
-
-    <div class="footer">
-        <p id="completionMessage"></p>
+    <div id="taskList">
+        <!-- Fixed initial tasks with sub-tasks -->
+        <div class="task">
+            <input type="checkbox" name="task" value="Market Opening Update" onchange="completeTask(this, 'Market Opening Update', this.parentNode)"> 
+            <span>🌅 Market Opening Update - 9:15 AM</span>
+            <div class="sub-task">
+                <input type="checkbox" name="subtask" value="Post an engaging update on Instagram Story" onchange="subTaskCompleted(this, 'Post an engaging update on Instagram Story')">
+                <span>Post an engaging update on Instagram Story.</span>
+            </div>
+            <div class="sub-task">
+                <input type="checkbox" name="subtask" value="Use vibrant visuals and catchy text" onchange="subTaskCompleted(this, 'Use vibrant visuals and catchy text')">
+                <span>Use vibrant visuals and catchy text!</span>
+            </div>
+        </div>
+        <div class="task">
+            <input type="checkbox" name="task" value="News Update" onchange="completeTask(this, 'News Update', this.parentNode)"> 
+            <span>📰 News Update - 11:30 AM</span>
+            <div class="sub-task">
+                <input type="checkbox" name="subtask" value="Share news across WhatsApp Channel" onchange="subTaskCompleted(this, 'Share news across WhatsApp Channel')">
+                <span>Share news across WhatsApp Channel</span>
+            </div>
+            <div class="sub-task">
+                <input type="checkbox" name="subtask" value="Share news across WhatsApp Community" onchange="subTaskCompleted(this, 'Share news across WhatsApp Community')">
+                <span>Share news across WhatsApp Community</span>
+            </div>
+            <div class="sub-task">
+                <input type="checkbox" name="subtask" value="Share news across YouTube Community" onchange="subTaskCompleted(this, 'Share news across YouTube Community')">
+                <span>Share news across YouTube Community</span>
+            </div>
+            <div class="sub-task">
+                <input type="checkbox" name="subtask" value="Share news across Instagram" onchange="subTaskCompleted(this, 'Share news across Instagram')">
+                <span>Share news across Instagram</span>
+            </div>
+        </div>
+        <div class="task">
+            <input type="checkbox" name="task" value="Trending News Reel" onchange="completeTask(this, 'Trending News Reel', this.parentNode)"> 
+            <span>🎥 Trending News Reel - 7:30 PM</span>
+            <div class="sub-task">
+                <input type="checkbox" name="subtask" value="Create a reel on Instagram Reels" onchange="subTaskCompleted(this, 'Create a reel on Instagram Reels')">
+                <span>Create a reel on Instagram Reels</span>
+            </div>
+            <div class="sub-task">
+                <input type="checkbox" name="subtask" value="Create a reel on YouTube Shorts" onchange="subTaskCompleted(this, 'Create a reel on YouTube Shorts')">
+                <span>Create a reel on YouTube Shorts</span>
+            </div>
+        </div>
+        <div class="task">
+            <input type="checkbox" name="task" value="Evening Market Update" onchange="completeTask(this, 'Evening Market Update', this.parentNode)"> 
+            <span>🌇 Evening Market Update - 9:30 PM</span>
+            <div class="sub-task">
+                <input type="checkbox" name="subtask" value="Post a whole-day market update on WhatsApp Channel" onchange="subTaskCompleted(this, 'Post a whole-day market update on WhatsApp Channel')">
+                <span>Post a whole-day market update on WhatsApp Channel</span>
+            </div>
+            <div class="sub-task">
+                <input type="checkbox" name="subtask" value="Post a whole-day market update on WhatsApp Community" onchange="subTaskCompleted(this, 'Post a whole-day market update on WhatsApp Community')">
+                <span>Post a whole-day market update on WhatsApp Community</span>
+            </div>
+            <div class="sub-task">
+                <input type="checkbox" name="subtask" value="Post a whole-day market update on YouTube Community" onchange="subTaskCompleted(this, 'Post a whole-day market update on YouTube Community')">
+                <span>Post a whole-day market update on YouTube Community</span>
+            </div>
+            <div class="sub-task">
+                <input type="checkbox" name="subtask" value="Post a whole-day market update on Instagram" onchange="subTaskCompleted(this, 'Post a whole-day market update on Instagram')">
+                <span>Post a whole-day market update on Instagram</span>
+            </div>
+        </div>
+        <!-- Option to add a new task -->
+        <div class="task">
+            <input type="text" id="newTask" placeholder="Enter new task..." />
+            <button onclick="addTask()">Add Task</button>
+        </div>
     </div>
 </div>
 
