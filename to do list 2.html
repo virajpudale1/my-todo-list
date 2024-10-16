@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Home, Vinayak</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom right, #ff7e5f, #feb47b); /* Gradient background */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333; /* Dark text for contrast */
+            overflow: hidden; /* Prevent scrolling */
+        }
+        .header {
+            text-align: center; /* Center the logo and tagline */
+            margin-bottom: 20px; /* Spacing below the header */
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white for the header */
+            padding: 20px; /* Padding for spacing */
+            border-radius: 15px; /* Rounded corners for the header */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Shadow for depth */
+        }
+        .logo {
+            font-size: 4rem; /* Larger font size for the logo */
+            color: #2980b9; /* Blue color for the company name */
+            font-weight: bold; /* Bold text */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Shadow for depth */
+            margin: 0; /* Reset margin */
+        }
+        .tagline {
+            font-size: 1.8rem; /* Font size for the tagline */
+            color: #34495e; /* Darker color for the tagline */
+            margin-top: 10px; /* Spacing above the tagline */
+            font-style: italic; /* Italic for the tagline */
+        }
+        .container {
+            width: 100%; /* Full width */
+            max-width: 800px; /* Max width for larger screens */
+            margin: 20px; /* Margin for smaller screens */
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+            border-radius: 15px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3); /* Deeper shadow for depth */
+            text-align: left; /* Left-align text for better readability */
+            overflow-y: auto; /* Enable vertical scrolling */
+            max-height: 80vh; /* Limit height for scrolling */
+        }
+        h1, h2 {
+            margin: 0; /* Reset margin */
+        }
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 10px; /* Spacing */
+            font-size: 2.5rem; /* Increased font size */
+        }
+        h2 {
+            color: #2980b9;
+            margin-bottom: 20px; /* Spacing */
+            font-size: 1.5rem; /* Increased font size */
+        }
+        p {
+            color: #34495e; /* Darker color for better readability */
+            font-size: 18px; /* Slightly larger font size */
+            margin-bottom: 20px; /* Spacing below the paragraph */
+        }
+        button {
+            padding: 12px 25px; /* Larger button size */
+            background-color: #2980b9; /* Button color */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s; /* Smooth transition for hover effects */
+            font-size: 16px; /* Increase button font size */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Button shadow */
+            align-self: flex-start; /* Align button to the start */
+        }
+        button:hover {
+            background-color: #3498db; /* Lighter button color on hover */
+            transform: translateY(-2px); /* Subtle lift effect on hover */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Button shadow on hover */
+        }
+        .task {
+            background-color: #ecf0f1; /* Light grey for task cards */
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+            display: flex;
+            flex-direction: column;
+        }
+        .completed {
+            text-decoration: line-through;
+            color: #bdc3c7; /* Light grey for completed tasks */
+        }
+        .sub-task {
+            background-color: #d1f0d1; /* Light green for sub-tasks */
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+        }
+        table {
+            width: 100%; /* Full-width for tables */
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ccc; /* Light grey borders */
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #2980b9; /* Blue background for table headers */
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header Section with Company Name and Tagline -->
+<div class="header">
+    <div class="logo">TradeAbles</div>
+    <div class="tagline">It's our ability to trade</div>
+</div>
+
+<!-- Page 1: Welcome Page -->
+<div class="container" id="welcomePage">
+    <h1>Welcome Home, Vinayak!</h1>
+    <h2>Hope you have a great day!</h2>
+    <p id="currentTime"></p>
+    <div id="mealResponse" style="display: block;">
+        <p id="mealQuestion"></p>
+        <label><input type="radio" name="mealResponse" value="Yes"> Yes</label><br>
+        <label><input type="radio" name="mealResponse" value="No"> No</label><br>
+        <button onclick="submitMealResponse()">Submit</button>
+    </div>
+</div>
+
+<!-- Page 2: To-Do List Page -->
+<div class="container" id="todoPage">
+    <h2>Date: <span id="currentDate"></span></h2>
+    <p id="currentTimeTodo"></p> <!-- Time display for to-do list -->
+
+    <form id="taskForm"> <!-- Form for the task list -->
+        <div id="taskList">
+            <!-- Fixed initial tasks with sub-tasks -->
+            <div class="task">
+                <input type="checkbox" name="task" value="Market Opening Update" onchange="completeTask(this, 'Market Opening Update', this.parentNode)"> 
+                <span>🌅 Market Opening Update - 9:15 AM</span>
+                <div class="sub-task">
+                    <input type="checkbox" name="subtask" value="Post an engaging update on Instagram Story" onchange="subTaskCompleted(this, 'Post an engaging update on Instagram Story')">
+                    <span>Post an engaging update on Instagram Story.</span>
+                </div>
+                <div class="sub-task">
+                    <input type="checkbox" name="subtask" value="Use vibrant visuals and catchy text" onchange="subTaskCompleted(this, 'Use vibrant visuals and catchy text')">
+                    <span>Use vibrant visuals and catchy text!</span>
+                </div>
+            </div>
+            <div class="task">
+                <input type="checkbox" name="task" value="News Update" onchange="completeTask(this, 'News Update', this.parentNode)"> 
+                <span>📰 News Update - 11:30 AM</span>
+                <div class="sub-task">
+                    <input type="checkbox" name="subtask" value="Share news across WhatsApp Channel" onchange="subTaskCompleted(this, 'Share news across WhatsApp Channel')">
+                    <span>Share news across WhatsApp Channel</span>
+                </div>
+                <div class="sub-task">
+                    <input type="checkbox" name="subtask" value="Share news across WhatsApp Community" onchange="subTaskCompleted(this, 'Share news across WhatsApp Community')">
+                    <span>Share news across WhatsApp Community</span>
+                </div>
+                <div class="sub-task">
+                    <input type="checkbox" name="subtask" value="Share news across YouTube Community" onchange="subTaskCompleted(this, 'Share news across YouTube Community')">
+                    <span>Share news across YouTube Community</span>
+                </div>
+                <div class="sub-task">
+                    <input type="checkbox" name="subtask" value="Share news across Instagram" onchange="subTaskCompleted(this, 'Share news across Instagram')">
+                    <span>Share news across Instagram</span>
+                </div>
+            </div>
+            <div class="task">
+                <input type="checkbox" name="task" value="Trending News Reel" onchange="completeTask(this, 'Trending News Reel', this.parentNode)"> 
+                <span>🎥 Trending News Reel - 7:30 PM</span>
+                <div class="sub-task">
+                    <input type="checkbox" name="subtask" value="Create a reel on Instagram Reels" onchange="subTaskCompleted(this, 'Create a reel on Instagram Reels')">
+                    <span>Create a reel on Instagram Reels</span>
+                </div>
+                <div class="sub-task">
+                    <input type="checkbox" name="subtask" value="Create a reel on YouTube Shorts" onchange="subTaskCompleted(this, 'Create a reel on YouTube Shorts')">
+                    <span>Create a reel on YouTube Shorts</span>
+                </div>
+            </div>
+            <div class="task">
+                <input type="checkbox" name="task" value="Evening Market Update" onchange="completeTask(this, 'Evening Market Update', this.parentNode)"> 
+                <span>🌇 Evening Market Update - 9:30 PM</span>
+                <div class="sub-task">
+                    <input type="checkbox" name="subtask" value="Post a whole-day market update on WhatsApp Channel" onchange="subTaskCompleted(this, 'Post a whole-day market update on WhatsApp Channel')">
+                    <span>Post a whole-day market update on WhatsApp Channel</span>
+                </div>
+                <div class="sub-task">
+                    <input type="checkbox" name="subtask" value="Post a whole-day market update on WhatsApp Community" onchange="subTaskCompleted(this, 'Post a whole-day market update on WhatsApp Community')">
+                    <span>Post a whole-day market update on WhatsApp Community</span>
+                </div>
+                <div class="sub-task">
+                    <input type="checkbox" name="subtask" value="Post a whole-day market update on YouTube Community" onchange="subTaskCompleted(this, 'Post a whole-day market update on YouTube Community')">
+                    <span>Post a whole-day market update on YouTube Community</span>
+                </div>
+                <div class="sub-task">
+                    <input type="checkbox" name="subtask" value="Post a whole-day market update on Instagram" onchange="subTaskCompleted(this, 'Post a whole-day market update on Instagram')">
+                    <span>Post a whole-day market update on Instagram</span>
+                </div>
+            </div>
+            <!-- Option to add a new task -->
+            <div class="task">
+                <input type="text" id="newTask" placeholder="Enter new task..." />
+                <button onclick="addTask()">Add Task</button>
+            </div>
+        </div>
+    </form>
+
+    <button onclick="generateReport()">Submit Report</button> <!-- New submit button -->
+
+    <div class="footer">
+        <p id="completionMessage"></p>
+    </div>
+</div>
+
+<!-- Page 3: Task Report Page -->
+<div class="container" id="reportPage">
+    <h2>Task Report</h2>
+    <p>Date: <span id="reportDate"></span></p>
+    <table>
+        <tr>
+            <th>Tasks Completed</th>
+            <th>Tasks Not Completed</th>
+        </tr>
+        <tr>
+            <td id="completedTasks"></td>
+            <td id="notCompletedTasks"></td>
+        </tr>
+    </table>
+    <p id="motivationalMessage"></p>
+    <p>📸 Remember to take a screenshot of this page and upload it in your tradeables media group!</p>
+    <button onclick="goBack()">Back to Tasks</button>
+</div>
+
+<script>
+    let allTasks = []; // Array to store tasks
+
+    // Function to update current time
+    function updateTime() {
+        const now = new Date();
+        const options = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
+        document.getElementById('currentTime').textContent = now.toLocaleTimeString([], options);
+        document.getElementById('currentTimeTodo').textContent = now.toLocaleTimeString([], options); // Show time on to-do page
+    }
+
+    // Function to display the meal prompt
+    function displayMealPrompt() {
+        const hours = new Date().getHours();
+        let mealMessage = "";
+
+        if (hours < 11) {
+            mealMessage = "Have you had your breakfast?";
+        } else if (hours < 16) {
+            mealMessage = "Have you had your lunch?";
+        } else if (hours < 19) {
+            mealMessage = "Have you had your tea?";
+        } else {
+            mealMessage = "Have you had your dinner?";
+        }
+
+        document.getElementById('mealQuestion').textContent = mealMessage; // Set the meal question
+    }
+
+    // Function to submit the meal response
+    function submitMealResponse() {
+        const response = document.querySelector('input[name="mealResponse"]:checked');
+        if (response) {
+            alert(`Thank you for your response! You selected: ${response.value}`);
+            // Proceed to show to-do list
+            document.getElementById('welcomePage').style.display = 'none'; // Hide welcome page
+            document.getElementById('todoPage').style.display = 'block'; // Show to-do list
+            const currentDate = new Date().toLocaleDateString();
+            document.getElementById('currentDate').textContent = currentDate; // Show current date
+            updateTime(); // Initial time update
+            setInterval(updateTime, 1000); // Update time every second
+        } else {
+            alert('Please select an option before proceeding.');
+        }
+    }
+
+    // Function to add a new task
+    function addTask() {
+        const taskText = document.getElementById('newTask').value;
+        if (taskText) {
+            const taskContainer = document.createElement('div');
+            taskContainer.classList.add('task');
+            taskContainer.innerHTML = `
+                <input type="checkbox" name="task" value="${taskText}" onchange="completeTask(this, '${taskText}', this.parentNode)"> 
+                <span>${taskText}</span>
+            `;
+            document.getElementById('taskList').appendChild(taskContainer);
+            document.getElementById('newTask').value = ''; // Clear input
+            allTasks.push({ text: taskText, completed: false }); // Add task to the array
+        }
+    }
+
+    // Function to show motivational message after completing a task
+    function completeTask(checkbox, task, taskElement) {
+        if (checkbox.checked) {
+            const messages = [
+                "Great job on completing: " + task + "!",
+                "You're doing amazing! Keep it up!",
+                "Fantastic! Now, move on to the next task!",
+                "You're a rockstar! Finish the next one!",
+                "Keep going! You're almost there!"
+            ];
+            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+            document.getElementById('completionMessage').textContent = randomMessage;
+            taskElement.classList.add('completed'); // Add class to indicate completion
+
+            // Update completed status in the array
+            allTasks.forEach(t => {
+                if (t.text === task) t.completed = true;
+            });
+        } else {
+            taskElement.classList.remove('completed'); // Remove class if unchecked
+            allTasks.forEach(t => {
+                if (t.text === task) t.completed = false;
+            });
+        }
+    }
+
+    // Function to show motivational message for sub-tasks
+    function subTaskCompleted(checkbox, subTask) {
+        if (checkbox.checked) {
+            const messages = [
+                "Nice work on: " + subTask + "!",
+                "You're making great progress! Keep it going!",
+                "Awesome! Now, onto the next sub-task!",
+                "Fantastic job! You're on a roll!",
+                "Well done! Every step counts!"
+            ];
+            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+            document.getElementById('completionMessage').textContent = randomMessage;
+        }
+    }
+
+    // Function to generate report
+    function generateReport() {
+        const currentDate = new Date().toLocaleDateString();
+        const completedTasks = Array.from(document.querySelectorAll('input[name="task"]:checked')).map(input => input.value).join(', ');
+        const notCompletedTasks = Array.from(document.querySelectorAll('input[name="task"]:not(:checked)')).map(input => input.value).join(', ');
+        const motivationalMessage = "You're doing great! Keep pushing through! 🎉";
+
+        // Update report fields
+        document.getElementById('reportDate').textContent = currentDate;
+        document.getElementById('completedTasks').textContent = completedTasks || "None";
+        document.getElementById('notCompletedTasks').textContent = notCompletedTasks || "None";
+        document.getElementById('motivationalMessage').textContent = motivationalMessage;
+
+        // Show report container
+        document.getElementById('todoPage').style.display = 'none'; // Hide to-do list
+        document.getElementById('reportPage').style.display = 'block'; // Show report
+    }
+
+    // Function to go back to tasks
+    function goBack() {
+        document.getElementById('reportPage').style.display = 'none'; // Hide report
+        document.getElementById('todoPage').style.display = 'block'; // Show to-do list
+    }
+
+    // Initialize the app by showing only the welcome page
+    document.getElementById('todoPage').style.display = 'none'; // Ensure the todo page is hidden
+    document.getElementById('reportPage').style.display = 'none'; // Ensure the report page is hidden
+    displayMealPrompt(); // Show meal prompt when the page loads
+    updateTime();
+</script>
+
+</body>
+</html>
